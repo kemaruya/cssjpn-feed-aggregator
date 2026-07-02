@@ -27,6 +27,61 @@
       --tag-bg: #1e3a5f;
       --tag-text: #4fc3f7;
     }
+    [data-theme="sakura"] {
+      --bg: #fef8fa;
+      --bg-card: #fdf2f5;
+      --text: #4a2030;
+      --text-sub: #8a5068;
+      --accent: #c44d78;
+      --accent-hover: #a83d64;
+      --border: #f0c4d0;
+      --tag-bg: #fce4ec;
+      --tag-text: #c44d78;
+    }
+    [data-theme="mint"] {
+      --bg: #f5fcf9;
+      --bg-card: #e8f5f0;
+      --text: #1b4332;
+      --text-sub: #52796f;
+      --accent: #2e8b6f;
+      --accent-hover: #24705a;
+      --border: #b2dfdb;
+      --tag-bg: #c8f0e4;
+      --tag-text: #2e8b6f;
+    }
+    [data-theme="lavender"] {
+      --bg: #faf7fd;
+      --bg-card: #f3edf7;
+      --text: #311b52;
+      --text-sub: #6b5280;
+      --accent: #7e57c2;
+      --accent-hover: #6a45ad;
+      --border: #d1c4e9;
+      --tag-bg: #ede7f6;
+      --tag-text: #7e57c2;
+    }
+    [data-theme="peach"] {
+      --bg: #fffaf5;
+      --bg-card: #fff3e8;
+      --text: #4e2a0a;
+      --text-sub: #8d5e3c;
+      --accent: #e67e4a;
+      --accent-hover: #d06a38;
+      --border: #ffccbc;
+      --tag-bg: #ffe8d6;
+      --tag-text: #e67e4a;
+    }
+    [data-theme="sky"] {
+      --bg: #f5fafd;
+      --bg-card: #e8f4fc;
+      --text: #0d2b45;
+      --text-sub: #4a7a9b;
+      --accent: #2196c4;
+      --accent-hover: #1a7ba3;
+      --border: #b3d9f2;
+      --tag-bg: #d6edfa;
+      --tag-text: #2196c4;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: "Segoe UI", "Yu Gothic UI", sans-serif;
@@ -169,17 +224,31 @@
     let activeTab = "all";
 
     // Theme
+    const themes = [
+      { id: "light", icon: "☀️" },
+      { id: "dark", icon: "🌙" },
+      { id: "sakura", icon: "🌸" },
+      { id: "mint", icon: "🍃" },
+      { id: "lavender", icon: "💜" },
+      { id: "peach", icon: "🍑" },
+      { id: "sky", icon: "🌤️" },
+    ];
     const themeBtn = document.getElementById("theme-toggle");
+    let currentThemeIndex = 0;
     const saved = localStorage.getItem("theme");
-    if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-      document.documentElement.setAttribute("data-theme", "dark");
-      themeBtn.textContent = "☀️";
+    if (saved) {
+      const idx = themes.findIndex((t) => t.id === saved);
+      if (idx !== -1) currentThemeIndex = idx;
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      currentThemeIndex = 1;
     }
+    document.documentElement.setAttribute("data-theme", themes[currentThemeIndex].id);
+    themeBtn.textContent = themes[(currentThemeIndex + 1) % themes.length].icon;
     themeBtn.addEventListener("click", () => {
-      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-      document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
-      themeBtn.textContent = isDark ? "🌙" : "☀️";
-      localStorage.setItem("theme", isDark ? "light" : "dark");
+      currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+      document.documentElement.setAttribute("data-theme", themes[currentThemeIndex].id);
+      themeBtn.textContent = themes[(currentThemeIndex + 1) % themes.length].icon;
+      localStorage.setItem("theme", themes[currentThemeIndex].id);
     });
 
     // Search
