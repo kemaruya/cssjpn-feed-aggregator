@@ -40,8 +40,8 @@ categories:
         url: "https://jpazinteg.github.io/blog/atom.xml"
         site: "https://jpazinteg.github.io/blog/"
       - name: "Azure PaaS サポート チーム"
-        url: "https://jpazpaas.github.io/blog/atom.xml"
-        site: "https://jpazpaas.github.io/blog/"
+        url: "https://azure.github.io/jpazpaas/atom.xml"
+        site: "https://azure.github.io/jpazpaas/"
       - name: "Azure Identity サポート チーム"
         url: "https://jpazureid.github.io/blog/atom.xml"
         site: "https://jpazureid.github.io/blog/"
@@ -85,8 +85,8 @@ categories:
     id: edge
     feeds:
       - name: "Edge/IE サポート チーム"
-        url: "https://jpieblog.github.io/blog/atom.xml"
-        site: "https://jpieblog.github.io/blog/"
+        url: "https://microsoft.github.io/jpbrowsers/atom.xml"
+        site: "https://microsoft.github.io/jpbrowsers/"
 
   - name: "SQL / Power BI"
     id: sql
