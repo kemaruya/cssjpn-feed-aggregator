@@ -63,14 +63,14 @@ function parseAtom(xml, feedMeta) {
 
   return entries.slice(0, MAX_ITEMS_PER_FEED).map((entry) => {
     // Atom format
-    if (entry.title && entry.updated) {
+    if (entry.title && (entry.updated || entry.published)) {
       const link = typeof entry.link === "object"
         ? (entry.link["@_href"] || (Array.isArray(entry.link) ? entry.link[0]["@_href"] : ""))
         : entry.link || "";
       return {
         title: typeof entry.title === "object" ? entry.title["#text"] || "" : entry.title,
         url: link,
-        date: entry.updated || entry.published || "",
+        date: entry.published || entry.updated || "",
         summary: truncate(stripHtml(entry.summary || entry.content || ""), 200),
         blog: feedMeta.name,
         blogUrl: feedMeta.site,
