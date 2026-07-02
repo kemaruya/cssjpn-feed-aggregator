@@ -1,0 +1,112 @@
+# 日本マイクロソフト サポートチーム BLOG フィード一覧
+# 各ブログの Atom/RSS feed URL を管理する
+
+categories:
+  - name: "Office / Exchange / SharePoint / Teams / Intune"
+    id: office
+    feeds:
+      - name: "Exchange & Outlook サポート"
+        url: "https://jpmessaging.github.io/blog/atom.xml"
+        site: "https://jpmessaging.github.io/blog/"
+      - name: "SharePoint サポート チーム"
+        url: "https://jpspsupport.github.io/blog/atom.xml"
+        site: "https://jpspsupport.github.io/blog/"
+      - name: "Office サポート チーム"
+        url: "https://officesupportjp.github.io/blog/atom.xml"
+        site: "https://officesupportjp.github.io/blog/"
+      - name: "Microsoft Japan UC Support Team"
+        url: "https://jpucsupport.github.io/blog/atom.xml"
+        site: "https://jpucsupport.github.io/blog/"
+      - name: "Japan Microsoft Intune Support Team"
+        url: "https://jpmem.github.io/blog/atom.xml"
+        site: "https://jpmem.github.io/blog/"
+
+  - name: "Azure"
+    id: azure
+    feeds:
+      - name: "Azure IaaS and Networking Support"
+        url: "https://jpaztech.github.io/blog/atom.xml"
+        site: "https://jpaztech.github.io/blog/"
+      - name: "Azure Subscription Management Support"
+        url: "https://jpazasms.github.io/blog/atom.xml"
+        site: "https://jpazasms.github.io/blog/"
+      - name: "Japan CSS ABRS (Backup/Recovery)"
+        url: "https://jpabrs-scem.github.io/blog/atom.xml"
+        site: "https://jpabrs-scem.github.io/blog/"
+      - name: "Azure Monitoring Support"
+        url: "https://jpazmon-integ.github.io/blog/atom.xml"
+        site: "https://jpazmon-integ.github.io/blog/"
+      - name: "Azure Integration Support"
+        url: "https://jpazinteg.github.io/blog/atom.xml"
+        site: "https://jpazinteg.github.io/blog/"
+      - name: "Azure PaaS サポート チーム"
+        url: "https://jpazpaas.github.io/blog/atom.xml"
+        site: "https://jpazpaas.github.io/blog/"
+      - name: "Azure Identity サポート チーム"
+        url: "https://jpazureid.github.io/blog/atom.xml"
+        site: "https://jpazureid.github.io/blog/"
+      - name: "Azure Machine Learning サポート"
+        url: "https://jpmlblog.github.io/blog/atom.xml"
+        site: "https://jpmlblog.github.io/blog/"
+      - name: "Azure Cognitive Services サポート"
+        url: "https://jpaiblog.github.io/blog/atom.xml"
+        site: "https://jpaiblog.github.io/blog/"
+      - name: "Japan IoT サポート"
+        url: "https://jpiotblog.github.io/blog/atom.xml"
+        site: "https://jpiotblog.github.io/blog/"
+      - name: "Azure DevOps サポート チーム"
+        url: "https://jpdscore.github.io/blog/atom.xml"
+        site: "https://jpdscore.github.io/blog/"
+      - name: "Azure Big Data Integration サポート"
+        url: "https://jpaz-bigdata.github.io/blog/atom.xml"
+        site: "https://jpaz-bigdata.github.io/blog/"
+
+  - name: "Windows / Security / System Center"
+    id: windows
+    feeds:
+      - name: "Japan Windows Commercial Support"
+        url: "https://jpwinsup.github.io/blog/atom.xml"
+        site: "https://jpwinsup.github.io/blog/"
+      - name: "Security サポート チーム"
+        url: "https://jp-sec.github.io/blog/atom.xml"
+        site: "https://jp-sec.github.io/blog/"
+      - name: "Japan System Center Support"
+        url: "https://jpsystemcenter.github.io/blog/atom.xml"
+        site: "https://jpsystemcenter.github.io/blog/"
+
+  - name: "Developer"
+    id: developer
+    feeds:
+      - name: "Windows Driver Kit サポート"
+        url: "https://jpwdkblog.github.io/blog/atom.xml"
+        site: "https://jpwdkblog.github.io/blog/"
+
+  - name: "Edge / IE / IIS"
+    id: edge
+    feeds:
+      - name: "Edge/IE サポート チーム"
+        url: "https://jpieblog.github.io/blog/atom.xml"
+        site: "https://jpieblog.github.io/blog/"
+
+  - name: "SQL / Power BI"
+    id: sql
+    feeds:
+      - name: "Power BI サポート チーム"
+        url: "https://jpbap-sqlbi.github.io/blog/atom.xml"
+        site: "https://jpbap-sqlbi.github.io/blog/"
+      - name: "SQL Cloud サポート チーム"
+        url: "https://jp-azuresql.github.io/blog/atom.xml"
+        site: "https://jp-azuresql.github.io/blog/"
+      - name: "PaaS OSS データベース サポート"
+        url: "https://jp-ossdb.github.io/blog/atom.xml"
+        site: "https://jp-ossdb.github.io/blog/"
+
+  - name: "Dynamics"
+    id: dynamics
+    feeds:
+      - name: "Dynamics 365 CRM & Power Platform"
+        url: "https://jpdynamicscrm.github.io/blog/atom.xml"
+        site: "https://jpdynamicscrm.github.io/blog/"
+      - name: "Dynamics 365 Finance and Operations/AX"
+        url: "https://jpd365erpsup.github.io/blog/atom.xml"
+        site: "https://jpd365erpsup.github.io/blog/"

@@ -1,0 +1,13 @@
+{
+  "name": "cssjpn-feed-aggregator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "日本マイクロソフト サポートチーム BLOG の最新記事アグリゲーター",
+  "scripts": {
+    "fetch": "node scripts/fetch-feeds.js",
+    "dev": "npx serve public"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.5.0"
+  }
+}

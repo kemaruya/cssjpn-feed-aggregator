@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日本マイクロソフト サポート BLOG 最新情報</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-card: #f8f9fa;
+      --text: #1a1a2e;
+      --text-sub: #555;
+      --accent: #0078d4;
+      --accent-hover: #106ebe;
+      --border: #e0e0e0;
+      --tag-bg: #e8f4fd;
+      --tag-text: #0078d4;
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --bg-card: #16213e;
+      --text: #eaeaea;
+      --text-sub: #aaa;
+      --accent: #4fc3f7;
+      --accent-hover: #81d4fa;
+      --border: #2a2a4a;
+      --tag-bg: #1e3a5f;
+      --tag-text: #4fc3f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", "Yu Gothic UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0 1rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    header h1 { font-size: 1.4rem; font-weight: 600; }
+    header .meta { font-size: 0.8rem; color: var(--text-sub); }
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+    .tabs {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+    .tab {
+      padding: 0.4rem 0.8rem;
+      border: none;
+      background: transparent;
+      color: var(--text-sub);
+      cursor: pointer;
+      border-radius: 4px 4px 0 0;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .tab:hover { background: var(--bg-card); }
+    .tab.active { color: var(--accent); border-bottom: 2px solid var(--accent); font-weight: 600; }
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.5rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .feed-list { list-style: none; }
+    .feed-item {
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      background: var(--bg-card);
+      transition: box-shadow 0.2s;
+    }
+    .feed-item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .feed-item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
+    .feed-item-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .feed-item-title a { color: var(--accent); text-decoration: none; }
+    .feed-item-title a:hover { text-decoration: underline; color: var(--accent-hover); }
+    .feed-item-date { font-size: 0.75rem; color: var(--text-sub); white-space: nowrap; }
+    .feed-item-summary { font-size: 0.85rem; color: var(--text-sub); margin-top: 0.4rem; }
+    .feed-item-blog {
+      display: inline-block;
+      font-size: 0.75rem;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-top: 0.4rem;
+    }
+    .feed-item-blog a { color: inherit; text-decoration: none; }
+    .feed-item-blog a:hover { text-decoration: underline; }
+    .loading { text-align: center; padding: 3rem; color: var(--text-sub); }
+    .error { text-align: center; padding: 2rem; color: #e74c3c; }
+    .status-bar {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      margin-bottom: 1rem;
+    }
+    footer { text-align: center; padding: 2rem 0; font-size: 0.8rem; color: var(--text-sub); border-top: 1px solid var(--border); margin-top: 2rem; }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.1rem; }
+      .feed-item-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>日本マイクロソフト サポート BLOG 最新情報</h1>
+        <div class="meta" id="generated-at"></div>
+      </div>
+      <button class="theme-toggle" id="theme-toggle">🌙</button>
+    </header>
+
+    <div class="controls">
+      <input type="search" class="search-box" id="search" placeholder="記事を検索...">
+    </div>
+
+    <div class="tabs" id="tabs"></div>
+    <div class="status-bar" id="status-bar"></div>
+    <ul class="feed-list" id="feed-list">
+      <li class="loading">読み込み中...</li>
+    </ul>
+
+    <footer>
+      <p>データソース: <a href="https://cssjpn.github.io/" style="color:var(--accent)">日本マイクロソフト サポート情報</a></p>
+      <p>各ブログの Atom フィードを定期的に取得して表示しています</p>
+    </footer>
+  </div>
+
+  <script>
+    const DATA_URL = "./data/feeds.json";
+    let allItems = [];
+    let categories = [];
+    let activeTab = "all";
+
+    // Theme
+    const themeBtn = document.getElementById("theme-toggle");
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.setAttribute("data-theme", "dark");
+      themeBtn.textContent = "☀️";
+    }
+    themeBtn.addEventListener("click", () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
+      themeBtn.textContent = isDark ? "🌙" : "☀️";
+      localStorage.setItem("theme", isDark ? "light" : "dark");
+    });
+
+    // Search
+    const searchInput = document.getElementById("search");
+    searchInput.addEventListener("input", render);
+
+    // Fetch data
+    fetch(DATA_URL)
+      .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+      .then((data) => {
+        allItems = data.items;
+        categories = data.categories;
+        document.getElementById("generated-at").textContent = `最終更新: ${new Date(data.generatedAt).toLocaleString("ja-JP")}`;
+        buildTabs();
+        render();
+      })
+      .catch((err) => {
+        document.getElementById("feed-list").innerHTML = `<li class="error">データの読み込みに失敗しました: ${err.message}</li>`;
+      });
+
+    function buildTabs() {
+      const tabsEl = document.getElementById("tabs");
+      const tabs = [{ id: "all", name: "すべて" }, ...categories];
+      tabsEl.innerHTML = tabs.map((t) =>
+        `<button class="tab ${t.id === activeTab ? "active" : ""}" data-tab="${t.id}">${t.name}</button>`
+      ).join("");
+      tabsEl.addEventListener("click", (e) => {
+        if (e.target.classList.contains("tab")) {
+          activeTab = e.target.dataset.tab;
+          tabsEl.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+          e.target.classList.add("active");
+          render();
+        }
+      });
+    }
+
+    function render() {
+      const query = searchInput.value.toLowerCase();
+      let items = allItems;
+      if (activeTab !== "all") {
+        items = items.filter((i) => i.category === activeTab);
+      }
+      if (query) {
+        items = items.filter((i) =>
+          i.title.toLowerCase().includes(query) ||
+          i.summary.toLowerCase().includes(query) ||
+          i.blog.toLowerCase().includes(query)
+        );
+      }
+
+      document.getElementById("status-bar").textContent = `${items.length} 件の記事`;
+
+      const listEl = document.getElementById("feed-list");
+      if (items.length === 0) {
+        listEl.innerHTML = `<li class="loading">該当する記事がありません</li>`;
+        return;
+      }
+
+      listEl.innerHTML = items.slice(0, 100).map((item) => {
+        const date = item.date ? new Date(item.date).toLocaleDateString("ja-JP") : "";
+        return `<li class="feed-item">
+          <div class="feed-item-header">
+            <div class="feed-item-title"><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a></div>
+            <div class="feed-item-date">${date}</div>
+          </div>
+          ${item.summary ? `<div class="feed-item-summary">${escapeHtml(item.summary)}</div>` : ""}
+          <span class="feed-item-blog"><a href="${escapeHtml(item.blogUrl)}" target="_blank" rel="noopener">${escapeHtml(item.blog)}</a></span>
+        </li>`;
+      }).join("");
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+  </script>
+</body>
+</html>
