@@ -108,6 +108,9 @@
       flex-wrap: wrap;
       margin-bottom: 1rem;
     }
+    .theme-picker-wrap {
+      position: relative;
+    }
     .theme-toggle {
       background: none;
       border: 1px solid var(--border);
@@ -117,6 +120,36 @@
       color: var(--text);
       font-size: 0.85rem;
     }
+    .theme-palette {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.5rem;
+      gap: 4px;
+      grid-template-columns: repeat(4, 1fr);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      z-index: 100;
+    }
+    .theme-palette.open { display: grid; }
+    .theme-swatch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 0.4rem 0.5rem;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      font-size: 1.1rem;
+    }
+    .theme-swatch:hover { background: var(--bg); }
+    .theme-swatch.active { border-color: var(--accent); background: var(--bg); }
+    .theme-swatch-label { font-size: 0.6rem; color: var(--text-sub); white-space: nowrap; }
     .tabs {
       display: flex;
       gap: 0.3rem;
@@ -198,7 +231,10 @@
         <h1>日本マイクロソフト サポート BLOG 最新情報</h1>
         <div class="meta" id="generated-at"></div>
       </div>
-      <button class="theme-toggle" id="theme-toggle">🌙</button>
+      <div class="theme-picker-wrap">
+        <button class="theme-toggle" id="theme-toggle">🎨</button>
+        <div class="theme-palette" id="theme-palette"></div>
+      </div>
     </header>
 
     <div class="controls">
@@ -225,31 +261,48 @@
 
     // Theme
     const themes = [
-      { id: "light", icon: "☀️" },
-      { id: "dark", icon: "🌙" },
-      { id: "sakura", icon: "🌸" },
-      { id: "mint", icon: "🍃" },
-      { id: "lavender", icon: "💜" },
-      { id: "peach", icon: "🍑" },
-      { id: "sky", icon: "🌤️" },
+      { id: "light", icon: "☀️", label: "ライト" },
+      { id: "dark", icon: "🌙", label: "ダーク" },
+      { id: "sakura", icon: "🌸", label: "桜" },
+      { id: "mint", icon: "🍃", label: "ミント" },
+      { id: "lavender", icon: "💜", label: "ラベンダー" },
+      { id: "peach", icon: "🍑", label: "ピーチ" },
+      { id: "sky", icon: "🌤️", label: "そら" },
     ];
     const themeBtn = document.getElementById("theme-toggle");
-    let currentThemeIndex = 0;
+    const palette = document.getElementById("theme-palette");
+    let currentThemeId = "light";
     const saved = localStorage.getItem("theme");
-    if (saved) {
-      const idx = themes.findIndex((t) => t.id === saved);
-      if (idx !== -1) currentThemeIndex = idx;
+    if (saved && themes.some((t) => t.id === saved)) {
+      currentThemeId = saved;
     } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      currentThemeIndex = 1;
+      currentThemeId = "dark";
     }
-    document.documentElement.setAttribute("data-theme", themes[currentThemeIndex].id);
-    themeBtn.textContent = themes[(currentThemeIndex + 1) % themes.length].icon;
-    themeBtn.addEventListener("click", () => {
-      currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-      document.documentElement.setAttribute("data-theme", themes[currentThemeIndex].id);
-      themeBtn.textContent = themes[(currentThemeIndex + 1) % themes.length].icon;
-      localStorage.setItem("theme", themes[currentThemeIndex].id);
+    document.documentElement.setAttribute("data-theme", currentThemeId);
+
+    function buildPalette() {
+      palette.innerHTML = themes.map((t) =>
+        `<div class="theme-swatch ${t.id === currentThemeId ? "active" : ""}" data-theme-id="${t.id}">
+          <span>${t.icon}</span><span class="theme-swatch-label">${t.label}</span>
+        </div>`
+      ).join("");
+    }
+    buildPalette();
+
+    themeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      palette.classList.toggle("open");
     });
+    palette.addEventListener("click", (e) => {
+      const swatch = e.target.closest(".theme-swatch");
+      if (!swatch) return;
+      currentThemeId = swatch.dataset.themeId;
+      document.documentElement.setAttribute("data-theme", currentThemeId);
+      localStorage.setItem("theme", currentThemeId);
+      buildPalette();
+      palette.classList.remove("open");
+    });
+    document.addEventListener("click", () => palette.classList.remove("open"));
 
     // Search
     const searchInput = document.getElementById("search");
